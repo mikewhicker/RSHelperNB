@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>RMHelper</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-icons.css?h=04d2aee2e7f3316b3462141977201ce4">
+    <link rel="stylesheet" href="/assets/css/bootstrap-table.min.css?h=6bd1b63c84aa893b8d9e5eed56c63e12">
+</head>
+
+<body>
+    <!-- Start: 1 Row 1 Column -->
+    <div class="container" id="login">
+        <div class="row">
+            <div class="col">
+                <h4 class="modal-title" style="color: var(--bs-blue);font-weight: bold;text-align: center;font-size: 32px;margin: 14px;">API Logins</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col flex-grow-1 flex-shrink-1 flex-fill justify-content-center align-items-center align-content-center">
+                <form class="d-lg-flex" id="frm-logins" method="post" target="_self" enctype="application/x-www-form-urlencoded" action="#">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div id="github-logins-cld" style="border: 1.5px solid var(--bs-blue);margin: 20px;padding: 10px;min-height: 250px;"><img src="/assets/img/git.png?h=791bf9979733d3650284e8e9964d14b3" style="height: 50px;width: 55px;margin-right: 10px;" width="55" height="50">
+                                <h5 class="d-lg-inline-block" style="font-weight: bold;text-decoration: underline;">GitHub Cloud</h5>
+                                <div class="row">
+                                    <div class="col"><label class="form-label" for="git-name-cld" style="font-weight: bold;margin-top: 10px;">Username:</label><input class="form-control" type="text" id="git-name-cld" placeholder="GitHub Cloud Username" style="background: var(--bs-gray-300);" form="frm-logins" name="git-name-cld"><label class="form-label" for="git-token-cld" style="font-weight: bold;margin-top: 10px;">Token:</label><input class="form-control" type="text" id="git-token-cld" placeholder="GitHub Cloud Token" style="background: var(--bs-gray-300);" form="frm-logins" name="git-token-cld"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div id="github-logins-ent" style="margin: 20px;border: 1.5px solid var(--bs-blue);padding: 10px;min-height: 250px;"><img src="/assets/img/git.png?h=791bf9979733d3650284e8e9964d14b3" style="width: 55px;height: 50px;margin-right: 10px;">
+                                <h5 class="d-lg-inline-block" style="font-weight: bold;text-decoration: underline;">GitHub Enterprise</h5>
+                                <div class="row">
+                                    <div class="col"><label class="form-label" for="git-name-ent" style="font-weight: bold;margin-top: 10px;">Username:</label><input class="form-control required" type="text" id="git-name-ent" placeholder="GitHub Enterprise Username" style="background: var(--bs-gray-300);" name="git-name-ent"><label class="form-label" for="git-token-ent" style="font-weight: bold;margin-top: 10px;">Token:</label><input class="form-control required" type="text" id="git-token-ent" placeholder="GiHub Enterprise Token" style="background: var(--bs-gray-300);" name="git-token-ent"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div id="jira-logins-cld" style="border: 1.5px solid var(--bs-blue);min-height: 250px;margin: 20px;padding: 10px;"><img src="/assets/img/Jira-icon-blue.svg?h=4e452423ddd06dc6673be5870a615e0d" style="width: 50px;height: 50px;margin-right: 10px;">
+                                <h5 class="d-lg-inline-block" style="font-weight: bold;text-decoration:  underline;">Jira Cloud</h5>
+                                <div class="row">
+                                    <div class="col"><label class="form-label" for="jira-name-cld" style="font-weight: bold;margin-top: 10px;">Username:</label><input class="form-control required" type="text" id="jira-name-cld" placeholder="Jira Cloud Username" style="background: var(--bs-gray-300);" name="jira-name-cld"><label class="form-label" for="jira-token-cld" style="font-weight: bold;margin-top: 10px;">Token:</label><input class="form-control required" type="text" id="jira-token-cld" placeholder="Jra Cloud Token" style="background: var(--bs-gray-300);" name="jira-token-cld"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col d-xxl-flex">
+                                    <div id="logins-footer" style="margin-left: 20px;margin-bottom: 10px;margin-top: 10px;">
+                                        <div class="d-inline"><button class="btn btn-primary active" id="btn-login-save" type="submit" style="margin: 5px;" onclick="">Save</button><button class="btn btn-secondary" id="btn-login-fill" type="button" style="margin: 5px;">Fill</button></div>
+                                        <div style="margin-right: 20px;">
+                                            <!-- Start: Line Break --><br/><!-- End: Line Break --><a style="margin-right: 20px;" href="https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line" target="_blank">API Token for password is required to access <strong>GitHub Data</strong></a><!-- Start: Line Break --><br/><!-- End: Line Break -->
+                                            <!-- Start: Line Break --><br/><!-- End: Line Break --><a href="https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/#Create-an-API-token" target="_blank">API Token for passeord is required to access <strong>Jira Data</strong></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- End: 1 Row 1 Column -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/bootstrap-table.min.js?h=ed357a446c9254b33a0d0c6826cfa05b"></script>
+    <script src="/assets/js/login.js?h=f0a6d60b216e351d928599733f873202"></script>
+</body>
+
+</html>
