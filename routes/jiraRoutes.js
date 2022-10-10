@@ -1,13 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const app = express();
+const path = require('path');
+const pubFolder = path.resolve(__dirname, '../public');
 
-app.get('/jira', (req, res) => {
-    res.sendFile(__dirname + '/public/jira.html');
+
+
+router.get('/', (req, res) => {
+    res.sendFile(pubFolder + '/jira.html');
 });
 
 
 //Jira Cloud Interface Service
-app.post('/jira/issues', async (req, res) => {
+router.post('/jira/issues', async (req, res) => {
     const jIssues = req.body;
     let jql = '';
     let jFixVersion = jIssues.jiraFixVersion;

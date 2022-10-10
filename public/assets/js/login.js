@@ -1,15 +1,19 @@
 var appHost = window.location.origin;
-var loginHost = appHost + '/login';
+var loginApi = appHost + '/login/api';
 
 
 
 $(document).ready(function () {
-    $("#frm-logins").attr("action", loginHost);
+    $("#frm-logins").attr("action", loginApi);
     $("#frm-logins").submit(function (event) {
         //event.preventDefault();
         saveLoginsLocal();
         return true;
     });
+	$("#btn-login-fill").click(function(){
+		loadLoginsFrmLocal();
+	});
+		
 });
 
 
@@ -28,9 +32,7 @@ function loadLoginsFrmLocal() {
             let valKey = val.name;
             let valVal = val.value;
             $("#" + valKey).val(valVal);
-
         });
-
     }
     else alert("No Logins for You!");
 }

@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const app = express();
+const path = require('path');
+const pubFolder = path.resolve(__dirname, '../public');
 
-app.get('/github', (req, res) => {
-    res.sendFile(__dirname + '/public/github.html');
+router.get('/', (req, res) => {
+    res.sendFile(pubFolder + '/github.html');
 });
 
-app.post('/github/pr', async (req, res) => {
+router.post('/github/pr', async (req, res) => {
     res.send("<h1>github Received</h1>")
 });
 

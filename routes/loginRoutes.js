@@ -1,12 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
+const pubFolder = path.resolve(__dirname, '../public');
 
-app.get('/login', (req, res) => {
-    res.sendFile(__dirname + '/public/login.html');
+
+
+router.get('/', (req, res) => {
+    res.sendFile(pubFolder + '/login.html');
 });
 
-app.post('/login', async (req, res) => {
+router.post('/login/api', async (req, res) => {
     res.send("<h1>Login Received</h1>")
 });
+
+
+
+
 
 module.exports = router;
