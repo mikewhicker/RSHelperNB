@@ -5,7 +5,7 @@ const app = express();
 const cors = require('cors');
 const path = require('path');
 const session = require('express-session');
-const store = require('better-express-store');
+//const store = require('better-express-store');
 const oneDay = 1000 * 60 * 60 * 24;
 const dbFolder = path.resolve(__dirname, './db');
 console.log('DB_FOLDER: ' + dbFolder);
@@ -32,27 +32,60 @@ app.use(express.json()); //Used to parse JSON bodies
 app.use(express.urlencoded()); //Parse URL-encoded bodies
 
 
+// *** Session State ****
+app.use(session({
+    secret: 'release1234managers4fun',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        httpOnly: false,
+        maxAge: oneDay
+    }
+    // change dbPath to the path to your database file
+    /* store: store({
+        dbPath: dbFolder + '/rmdb.db',
+        tableName: 'sessions',
+        deleteAfterInactivityMinutes: 120 // 0 = never delete
+    }) */
+}));
+
+
 
 
 // ** Setup API Routers **
 
 //Server App
 app.get('/', (req, res) => {
-    /* if (req.body.username == myusername && req.body.password == mypassword) {
-        session = req.session;
-        session.userid = req.body.username;
-        console.log(req.session)
-        res.send(`Hey there, welcome <a href=\'/logout'>click to logout</a>`);
+
+    if (req.session) {
+        console.log('AppSession: ' + req.session);
+        if (req.session.login === true) {
+            res.sendFile(__dirname + '/public/home.html');
+        }
+        else {
+            res.redirect('/login');
+        }
     }
     else {
-        res.send('Invalid username or password');
-    } */
-    //res.sendFile(__dirname + '/public/home.html');
+        res.redirect('/login');
+    }
 });
+
 
 //Home
 app.get('/home', (req, res) => {
-    res.sendFile(__dirname + '/public/home.html');
+    if (req.session) {
+        if (req.session.login === true) {
+            res.sendFile(__dirname + '/public/home.html');
+        }
+        else {
+            res.redirect('/login');
+        }
+    }
+    else {
+        res.redirect('/login');
+    }
 });
 
 //Logins
@@ -74,26 +107,8 @@ app.get("*", (req, res) => {
 });
 
 
-// *** Session State ****
-app.use(session({
-    secret: 'release1234managers4fun',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: false,
-        httpOnly: false,
-        maxAge: oneDay
-    },
-    // change dbPath to the path to your database file
-    store: store({
-        dbPath: dbFolder + '/rmdb.db',
-        tableName: 'sessions',
-        deleteAfterInactivityMinutes: 120 // 0 = never delete
-    })
-}));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
 
 
 

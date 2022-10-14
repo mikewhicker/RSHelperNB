@@ -1,5 +1,5 @@
 var appHost = window.location.origin;
-var loginApi = appHost + '/login/api';
+var loginApi = appHost + '/login';
 
 
 
