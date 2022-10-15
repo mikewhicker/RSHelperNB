@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/bootstrap-icons.css?h=04d2aee2e7f3316b3462141977201ce4">
     <link rel="stylesheet" href="/assets/css/bootstrap-table.min.css?h=6bd1b63c84aa893b8d9e5eed56c63e12">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 
 <body class="text-primary" id="body">
@@ -19,29 +20,19 @@
                     <nav class="navbar navbar-light navbar-expand-lg navigation-clean-button">
                         <div class="container"><a class="navbar-brand" href="#" style="border-radius: 10px;font-style: italic;text-shadow: 2px 4px 2px var(--bs-blue);font-size: 30px;">RM Helper</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="navbar-toggler-icon"></span></button>
                             <div class="collapse navbar-collapse" id="navcol-1">
-                                <ul class="navbar-nav me-auto" id="mainNav">
-                                    <li class="nav-item"><a class="nav-link" id="mnu_home" href="#" style="color: var(--bs-blue);font-weight: bold;">Home</a></li>
-                                    <li class="nav-item"></li>
-                                    <li class="nav-item"><a class="nav-link" id="mnu-github" href="#" style="color: var(--bs-blue);font-weight: bold;">Github</a></li>
-                                    <li class="nav-item"><a class="nav-link" id="mnu-jira" href="#" style="color: var(--bs-blue);font-weight: bold;">Jira</a></li>
-                                </ul><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button" href="#" style="background: var(--bs-blue);">LogIn</a></span>
+                                <ul class="navbar-nav" id="mainNav" style="margin-left: 30px;">
+                                    <li class="nav-item"><a class="nav-link fs-4" id="mnu_home" href="/home.html">Home</a></li>
+                                    <li class="nav-item" id="nav-github"><a class="nav-link fs-4" id="mnu-github" href="/github.html">Github</a></li>
+                                    <li class="nav-item"><a class="nav-link fs-4" id="mnu-jira" href="/jira.html">Jira</a></li>
+                                </ul><a class="btn ms-auto" role="button" data-bss-disabled-mobile="true" data-bss-hover-animate="swing" id="logOut" style="color: rgb(255,255,255);background: linear-gradient(163deg, #0c64e8, white 100%);" href="/login/logout">Logout</a>
                             </div>
                         </div>
                     </nav><!-- End: Navigation with Button -->
                 </header>
                 <main>
-                    <section id="home">
-                        <div>
-                            <h3 style="padding-bottom: 10px;">Home</h3>
-                            <p>The <span style="text-decoration: underline;">RM Helper App</span> is an application that interfaces with GitHub and Jira in order to facilitate various administrative activities usually provided by Release Managers (RM's).</p>
-                            <p>GitHub does not provide (within its website) a means to bulk pull or update key information utilized by RM's. This includes bulk downloads of pull requests (pr's), updating pr - labels, milestones, and releases. RM Helper fills this gap.</p>
-                            <p>While Jira itself provides the ability to search, filter, and export Issues, the RM Helper App provides a means to scrape Jira issue iD's from Github PR titles and match agains Jira tickets in a release (FixVersion).&nbsp;</p>
-                            <p>The data provided by the RM Helper App and its ability to help the administration of PR data helps release managers aggregate information for analysis, reporting, and metrics.</p>
-                        </div>
-                    </section>
                     <section id="github">
                         <div>
-                            <h3>GitHub</h3>
+                            <!-- Start: Line Break --><br/><!-- End: Line Break -->
                             <div>
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-github-pr">Pull Requests</a></li>
@@ -55,9 +46,9 @@
                                     <div class="tab-pane active" role="tabpanel" id="tab-github-pr" style="margin-right: 10px;">
                                         <!-- Start: Line Break --><br/><!-- End: Line Break -->
                                         <h3>Pull Requests</h3>
-                                        <p>Use this form to select and download Github pull requests. Use the "Repo Group", "Repo Status", and "Service Type" to help further filter base on the repo group information.&nbsp; If not using repo group, clear the repo group field and just use the PR Filter/Query string.&nbsp;&nbsp;</p><!-- Start: Line Break --><br/><!-- End: Line Break -->
-                                        <div><a class="btn btn-primary" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button">Toggle Help</a>
-                                            <div class="collapse" id="collapse-1">
+                                        <p>Use this form to select and download Github pull requests. Use the "Repo Group", "Repo Status", and "Service Type" to help further filter based on the repo group information.&nbsp; If not using repo group, clear the repo group field and just use the PR Filter/Query string.&nbsp;&nbsp;</p><!-- Start: Line Break --><br/><!-- End: Line Break -->
+                                        <div><a class="btn btn-primary" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">Toggle Help</a>
+                                            <div class="collapse show" id="collapse-1">
                                                 <!-- Start: Line Break --><br/><!-- End: Line Break -->
                                                 <p><strong><span style="text-decoration: underline;">Pull Request Form Guide</span></strong></p>
                                                 <ul>
@@ -171,144 +162,15 @@
                             </div>
                         </div>
                     </section>
-                    <section id="jira">
-                        <h3>Jira</h3>
-                        <div>
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-7">Issues</a></li>
-                                <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-8">Projects</a></li>
-                                <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-9">Releaseas</a></li>
-                                <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-10">Components</a></li>
-                                <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-11">Setup</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane active" role="tabpanel" id="tab-7">
-                                    <p>Content for tab 7.</p>
-                                </div>
-                                <div class="tab-pane" role="tabpanel" id="tab-8">
-                                    <p>Content for tab 8.</p>
-                                </div>
-                                <div class="tab-pane" role="tabpanel" id="tab-9">
-                                    <p>Content for tab 9.</p>
-                                </div>
-                                <div class="tab-pane" role="tabpanel" id="tab-10">
-                                    <p>Tab content.</p>
-                                </div>
-                                <div class="tab-pane" role="tabpanel" id="tab-11">
-                                    <p>Tab content.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
                 </main>
-            </div>
-        </div>
-        <div class="modal fade" role="dialog" tabindex="-1" id="modal-login" data-bs-backdrop="static">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" style="color: var(--bs-blue);font-weight: bold;">Logins</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body container-fluid">
-                        <form id="frm-logins" method="post" target="_self" action="&quot;&quot;">
-                            <div id="github-logins-cld">
-                                <div class="row" style="margin-bottom: 10px;">
-                                    <div class="col-lg-2"><img src="/assets/img/git.png?h=791bf9979733d3650284e8e9964d14b3" style="width: 55px;height: 50px;"></div>
-                                    <div class="col" style="padding-top: 10px;">
-                                        <h4 style="font-weight: bold;text-decoration:  underline;">GitHub Cloud</h4>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div id="gitCloudLogins"><label class="form-label" for="git-name-cld" style="font-weight: bold;">Username:</label><input class="form-control" type="text" id="git-name-cld" placeholder="GitHub Cloud Username" style="background: var(--bs-gray-300);" form="frm-logins" name="git-name-cld"><label class="form-label" for="git-token-cld" style="font-weight: bold;">Token:</label><input class="form-control" type="text" id="git-token-cld" placeholder="GitHub Cloud Token" style="background: var(--bs-gray-300);" form="frm-logins" name="git-token-cld"></div>
-                                    </div>
-                                </div>
-                                <hr><!-- Start: Line Break --><br/><!-- End: Line Break -->
-                            </div>
-                            <div id="github-logins-ent">
-                                <div class="row" style="margin-bottom: 10px;">
-                                    <div class="col-lg-2"><img src="/assets/img/git.png?h=791bf9979733d3650284e8e9964d14b3" style="width: 55px;height: 50px;"></div>
-                                    <div class="col" style="padding-top: 10px;">
-                                        <h4 style="font-weight: bold;text-decoration:  underline;">GitHub Enterprise</h4>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div id="gitEntLogins"><label class="form-label" for="git-name-ent" style="font-weight: bold;">Username:</label><input class="form-control required" type="text" id="git-name-ent" placeholder="GitHub Enterprise Username" style="background: var(--bs-gray-300);" name="git-name-ent"><label class="form-label" for="git-token-ent" style="font-weight: bold;">Token:</label><input class="form-control required" type="text" id="git-token-ent" placeholder="GiHub Enterprise Token" style="background: var(--bs-gray-300);" name="git-token-ent"></div>
-                                    </div>
-                                </div>
-                                <hr><!-- Start: Line Break --><br/><!-- End: Line Break -->
-                            </div>
-                            <div id="jira-logins-cld">
-                                <div class="row" style="margin-bottom: 10px;">
-                                    <div class="col-lg-2 col-xl-2"><img src="/assets/img/Jira-icon-blue.svg?h=4e452423ddd06dc6673be5870a615e0d" style="width: 50px;height: 50px;"></div>
-                                    <div class="col" style="padding-top: 10px;">
-                                        <h4 style="font-weight: bold;text-decoration:  underline;">Jira Cloud</h4>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col"><label class="form-label" for="jira-name-cld" style="font-weight: bold;">Username:</label><input class="form-control required" type="text" id="jira-name-cld" placeholder="Jira Cloud Username" style="background: var(--bs-gray-300);" name="jira-name-cld"><label class="form-label" for="jira-token-cld" style="font-weight: bold;">Token:</label><input class="form-control required" type="text" id="jira-token-cld" placeholder="Jra Cloud Token" style="background: var(--bs-gray-300);" name="jira-token-cld"></div>
-                                </div>
-                                <hr><!-- Start: Line Break --><br/><!-- End: Line Break -->
-                            </div>
-                            <div id="logins-footer">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="modal-footer"><button class="btn btn-light" id="btn-login-close" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" id="btn-login-save" type="submit">Save</button></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" role="dialog" tabindex="-1" id="modal-prtbl">
-            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable modal-fullscreen" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Selected PR's</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Query Results:</p>
-                        <div id="prtbl"></div>
-                    </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" id="bttnSelPrtbl" type="button">Select Table</button></div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" role="dialog" tabindex="-1" id="modal-prtbl2">
-            <div class="modal-dialog modal-xl modal-dialog-scrollable modal-fullscreen" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Selected PR's NonCompliant</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Query results that are NonCompliant:</p>
-                        <div id="prtbl2"></div>
-                    </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" id="bttnSelPrtbl2" type="button">Select Table</button></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container text-center" id="loader">
-        <div class="row">
-            <div class="col">
-                <div style="padding-top: 10%;padding-bottom: 10%;">
-                    <div style="width: 300px;padding-bottom: 10px;border-style: outset;margin-left: 10px;">
-                        <!-- Start: Line Break --><br/><!-- End: Line Break -->
-                        <p class="fs-1 text-center">Loading....</p>
-                        <p class="text-center"><span class="spinner-border text-primary" role="status"></span></p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/bs-init.js?h=7563c52cc0a72a92d96ce0159b71241c"></script>
     <script src="/assets/js/bootstrap-table.min.js?h=ed357a446c9254b33a0d0c6826cfa05b"></script>
-    <script src="/assets/js/login.js?h=a7feae491bc6cc61af69a48275789058"></script>
+    <script src="/assets/js/github.js?h=aff12cbb4c25d815bd8f84ce8cf3892a"></script>
 </body>
 
 </html>
