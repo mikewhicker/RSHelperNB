@@ -5,10 +5,9 @@ const app = express();
 const cors = require('cors');
 const path = require('path');
 const session = require('express-session');
-//const store = require('better-express-store');
+const store = require('better-express-store');
 const oneDay = 1000 * 60 * 60 * 24;
 const dbFolder = path.resolve(__dirname, './db');
-console.log('DB_FOLDER: ' + dbFolder);
 //const axios = require('axios');
 
 //const sqlite3 = require('sqlite3').verbose();
@@ -41,13 +40,13 @@ app.use(session({
         secure: false,
         httpOnly: false,
         maxAge: oneDay
-    }
+    },
     // change dbPath to the path to your database file
-    /* store: store({
+    store: store({
         dbPath: dbFolder + '/rmdb.db',
         tableName: 'sessions',
         deleteAfterInactivityMinutes: 120 // 0 = never delete
-    }) */
+    })
 }));
 
 

@@ -40,7 +40,6 @@
                                     <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-github-lbl">Labels</a></li>
                                     <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-github-rls">Releases</a></li>
                                     <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-github-rgs">Repo Groups</a></li>
-                                    <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-github-setup">Setup</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane active" role="tabpanel" id="tab-github-pr" style="margin-right: 10px;">
@@ -72,17 +71,17 @@
                                                     <li><strong>NonComplieant</strong> - Creates a table view of PR's that do not have proper format of Jira# in PR title, Missing Milestone on PR, etc.</li>
                                                 </ul>
                                             </div>
-                                        </div><!-- Start: Line Break --><br/><!-- End: Line Break --><label class="form-label"><strong>Repository Group:</strong></label><a class="btn btn-link d-inline-block" role="button" id="btnPrclearRepoGrp"><em>[clear]</em></a><!-- Start: Line Break --><br/><!-- End: Line Break --><select id="sel-rpogrp-2" class="selectRepoGroup">
-                                            <optgroup label="Repo Group">
-                                                <option value="12" selected="">This is item 1</option>
-                                            </optgroup>
-                                        </select><!-- Start: Line Break --><br/><!-- End: Line Break -->
+                                        </div><!-- Start: Line Break --><br/><!-- End: Line Break --><label class="form-label"><strong>Repository Group:</strong></label><button class="btn btn-link d-inline-block" id="btnPrclearRepoGrp" type="button"><em>[clear]</em></button><!-- Start: Line Break --><br/><!-- End: Line Break -->
+                                        <!-- Start: selector --><select id="sel-rpogrp-git">
+
+<option id="sel-rpogrp-git-opt0" disabled selected value> -- select an option -- </option></select><!-- End: selector -->
+                                        <!-- Start: Line Break --><br/><!-- End: Line Break -->
                                         <!-- Start: Line Break --><br/><!-- End: Line Break -->
                                         <div id="PRrepStatus"><label class="form-label fw-bold">Repo Status:</label><!-- Start: Line Break --><br/><!-- End: Line Break -->
-                                            <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="prStatA" name="PRrepStat" value="A"><label class="form-check-label" for="prStatA">Active</label></div>
-                                            <div class="form-check form-check-inline" name="prRpoGrpStat"><input class="form-check-input" type="radio" id="prStatI" name="PRrepStat" value="I"><label class="form-check-label" for="prStatI">Inactive</label></div>
-                                            <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="prStatC" name="PRrepStat" value="C"><label class="form-check-label" for="prStatC">Code Artifact</label></div>
-                                            <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="prStatX" name="PRrepStat" value="X"><label class="form-check-label" for="prStatX">All</label></div><!-- Start: Line Break --><br/><!-- End: Line Break -->
+                                            <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="prStatA" name="PRrepStat" value="A" disabled=""><label class="form-check-label" for="prStatA">Active</label></div>
+                                            <div class="form-check form-check-inline" name="prRpoGrpStat"><input class="form-check-input" type="radio" id="prStatI" name="PRrepStat" value="I" disabled=""><label class="form-check-label" for="prStatI">Inactive</label></div>
+                                            <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="prStatC" name="PRrepStat" value="C" disabled=""><label class="form-check-label" for="prStatC">Code Artifact</label></div>
+                                            <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="prStatX" name="PRrepStat" value="X" disabled=""><label class="form-check-label" for="prStatX">All</label></div><!-- Start: Line Break --><br/><!-- End: Line Break -->
                                             <!-- Start: Line Break --><br/><!-- End: Line Break --><label class="form-label fw-bold">Service Type:</label>
                                         </div>
                                         <div id="gServers">
@@ -122,41 +121,8 @@
                                         </div><!-- Start: Line Break --><br/><!-- End: Line Break -->
                                         <section>
                                             <!-- Start: Line Break --><br/><!-- End: Line Break -->
-                                            <div class="table-responsive">
-                                                <table class="table" id="repoGroupTbl" data-toggle="table" data-url="/assets/js/github-groups.json" data-filter-control="true" data-show-search-clear-button="true" data-search="true">
-                                                    <thead>
-                                                        <tr>
-                                                            <th data-field="Group" data-searchable="true" data-sortable="true" data-filter-control="select">RepoGroup</th>
-                                                            <th data-field="Owner">Owner</th>
-                                                            <th data-field="RepoName">RepoName</th>
-                                                            <th data-field="RepoUrl" data-formatter="gitRepoGrpsUrlFormatter">RepoUrl</th>
-                                                            <th data-field="RepoType">RepoType</th>
-                                                            <th data-field="Status" data-filter-control="select">Status</th>
-                                                            <th data-field="Division" data-sortable="true" data-filter-control="select">Division</th>
-                                                            <th data-field="Platform" data-sortable="true" data-filter-control="select">Platform</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-                                                </table>
-                                            </div>
                                             <div id="tblRepoGroups"></div>
                                         </section>
-                                    </div>
-                                    <div class="tab-pane" role="tabpanel" id="tab-github-setup">
-                                        <!-- Start: Line Break --><br/><!-- End: Line Break -->
-                                        <h3 class="text-danger">SETUP</h3>
-                                        <p>Use this section to configure the app for Github interaction. Changes can only be saved to Github if the user has privileges to the GitHub Pages location. the RM Helper App is mostly designed to be served from Git Pages, however it can be hosted from any web server.&nbsp; Click on "Defaults" to load the current default data.&nbsp; <em>&lt;save&gt; - This functionality is still in progress</em></p>
-                                        <form id="frm-github-settings">
-                                            <fieldset style="border: 2px solid var(--bs-red);padding-left: 10px;">
-                                                <legend style="font-weight: bold;padding-top: 10px;">API Links</legend><label class="form-label" style="font-weight: bold;padding-top: 10px;" for="GitHubPages">GitHub Pages or Webserver Url:</label><input class="form-control" type="text" id="GitHubPages" name="GitHubPages" placeholder="https://pages.github.com/Organization/Folder/" style="background: var(--bs-gray-200);"><label class="form-label" style="font-weight: bold;padding-top: 10px;" for="GitGraphqlAPIe">GitHub Enterprise Graphql API:</label><input class="form-control" type="text" id="GitGraphqlAPIe" name="GitGraphqlAPIe" placeholder="https://github.mycompany.com/api/graphql" style="background: var(--bs-gray-200);"><label class="form-label" style="font-weight: bold;padding-top: 10px;" for="GitRestAPIe">GitHub Enterprise Rest API:</label><input class="form-control" type="text" id="GitRestAPIe" name="GitRestAPIe" placeholder="https://github.mycompany.com/api/v3" style="background: var(--bs-gray-200);"><label class="form-label" style="font-weight: bold;padding-top: 10px;" for="GitGraphqlAPIc">GitHub Cloud Graphql API:</label><input class="form-control" type="text" id="GitGraphqlAPIc" name="GitGraphqlAPIc" placeholder="https://api.github.com/graphql" style="background: var(--bs-gray-200);"><label class="form-label" style="font-weight: bold;padding-top: 10px;" for="GitRestAPIc">GitHub Cloud Rest API:</label><input class="form-control" type="text" id="GitRestAPIc" name="GitRestAPIc" placeholder="https://github.com/api/v3" style="background: var(--bs-gray-200);">
-                                            </fieldset><!-- Start: Line Break --><br/><!-- End: Line Break -->
-                                            <fieldset style="border: 2px solid var(--bs-red);padding-left: 10px;">
-                                                <legend style="font-weight: bold;margin-top: 10px;">Pull Request - Sample Filters</legend>
-                                                <p style="padding-top: 10px;font-style: italic;">There are 3 Sample filter objects saved as json. Only change the value of the PrFilter1, PrFilter2, PrFilter3 keys. The value should be a standard GitHub PR search text.</p><textarea class="form-control" id="setupPrFilter" placeholder="Please use json key:value format:  {&quot;PrFilter1&quot;:&quot;filter text&quot;,&quot;PrFilter2&quot;:&quot;PRFilter3&quot;:&quot;filter text&quot; text}" style="background: var(--bs-gray-200);height: 85px;"></textarea><label class="form-label" style="font-weight: bold;margin-top: 15px;">Default Color:&nbsp;</label>
-                                                <p>The default color is mainly used for adding new labels in GitHub for pull requests. All RM labels should be the same color.</p><input class="form-control form-control-color" type="color" id="color-github-setup" value="#77f4ae" style="margin-left: 15px;margin-bottom: 10px;">
-                                            </fieldset>
-                                        </form>
-                                        <div class="btn-group border rounded-pill" role="group" style="margin-top: 30px;margin-bottom: 20px;"><button class="btn btn-primary" id="btn-github-setup-reset" type="button" style="margin: 5px;border-radius: 10px;">Defaults</button><button class="btn btn-primary" id="btn-github-setup-save" type="button" style="margin: 5px;color: var(--bs-gray-100);background: var(--bs-red);">Save</button></div>
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +136,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/bs-init.js?h=7563c52cc0a72a92d96ce0159b71241c"></script>
     <script src="/assets/js/bootstrap-table.min.js?h=ed357a446c9254b33a0d0c6826cfa05b"></script>
-    <script src="/assets/js/github.js?h=aff12cbb4c25d815bd8f84ce8cf3892a"></script>
+    <script src="/assets/js/github.js?h=0ec3f22a3bde063c6055c6a7fa88cdbd"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 </body>
 
 </html>
