@@ -213,7 +213,6 @@ async function getGitPRs2(logins, rpogrp, rpoObj) {
 }
 
 
-
 //Repo Group Selector
 async function getRepoGrpSel() {
     let db = new sqlite3.Database(dbFolder + '/rmdb.db', sqlite3.OPEN_READONLY, (err) => {
@@ -238,8 +237,9 @@ async function getRepoGrpSel() {
         if (err) {
             console.error(err.message);
         }
-        console.log("Datbase Closed");
+        console.log("Database Closed");
     });
+    console.log("Retrieved Data");
     return repoGroup;
 }
 
