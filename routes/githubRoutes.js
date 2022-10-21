@@ -22,18 +22,7 @@ router.get('/grps', async function (req, res) {
     else { res.redirect('/login'); }
 });
 
-router.get('/prs', function (req, res) {
-    if (req.session.login === true) {
-        var parms1 = { PRrepStat: "A", selRpogrpGitOpt: "PCG_AEM", gServer: "E", prFilter: "is:pr milestone:Facet is:merged base:qa" };
-        db.getGitPRs(req.session.loginData, parms1)
-            .then(data => {
-                res.json(data);
-            });
-    }
-    else { res.redirect('/login'); }
-});
-
-router.get('/prs1', function (req, res) {
+router.get('/grp', function (req, res) {
     if (req.session.login === true) {
         var parms1 = { PRrepStat: "A", selRpogrpGitOpt: "PCG_AEM", gServer: "E", prFilter: "is:pr milestone:Facet is:merged base:qa" };
         db.getRepoGrpData(parms1.selRpogrpGitOpt)
@@ -43,6 +32,18 @@ router.get('/prs1', function (req, res) {
     }
     else { res.redirect('/login'); }
 });
+
+router.get('/prs', async function (req, res) {
+    if (req.session.login === true) {
+        var parms1 = { PRrepStat: "A", selRpogrpGitOpt: "PCG_AEM", gServer: "E", prFilter: "is:pr milestone:Facet is:merged base:qa" };
+        let prData = await db.getGitPRs(req.session.loginData, parms1);
+        console.log("routerReturn: " + JSON.stringify(prData));
+        res.json(prData);
+    }
+    else { res.redirect('/login'); }
+});
+
+
 
 
 
