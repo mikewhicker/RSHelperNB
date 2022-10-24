@@ -22,6 +22,7 @@ router.get('/grps', async function (req, res) {
     else { res.redirect('/login'); }
 });
 
+//Get Repogroup data for selected repogroup
 router.get('/grp', function (req, res) {
     if (req.session.login === true) {
         var parms1 = { PRrepStat: "A", selRpogrpGitOpt: "PCG_AEM", gServer: "E", prFilter: "is:pr milestone:Facet is:merged base:qa" };

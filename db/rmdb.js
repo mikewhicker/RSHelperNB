@@ -3,7 +3,6 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const dbFolder = path.resolve(__dirname, '../db');
 //const axios = require('axios').default;
-const
 //Server API Setup
 const serverAPIs = {
     "GitGraphqlAPI": "https://github.sherwin.com/api/graphql",
@@ -39,7 +38,6 @@ async function getRepoGrpSel() {
         }
         console.log("Database Closed");
     });
-    console.log("Retrieved Data");
     return repoGroup;
 }
 
@@ -61,18 +59,44 @@ async function getRepoGrpData(rpoGrp) {
             if (err) { throw err; }
             resolve(rows);
         });
-    })
-    let rpoGrpData = await dbResultSet;
+    });
+    let repoGroup = await dbResultSet;
     db.close((err) => {
         if (err) {
             console.error(err.message);
         }
         console.log("Datbase Closed");
     });
-    return rpoGrpData;
+    return repoGroup;
+
+
+
+
+
+
+
+
+    async function openDB() {
+
+    }
+
+    async function dbResults() {
+
+    }
+
+    async function dbClose() {
+
+    }
+
+
+
+
+
+
+
+
+
 }
-
-
 
 //parms = PRrepStat, selRpogrpGitOpt, gServer, prFilter
 async function getGitPRs(loginD, parms) {
@@ -81,31 +105,25 @@ async function getGitPRs(loginD, parms) {
     var getRepoPRArray = [];
     var gitPRs = {};
 
-    //A RepoGroup is Selected
-    if (repoGroupVal) {
-        var repoGroupData = await getRepoGrpData(repoGroupVal);
-
-        repoGroupData.forEach(function (repo1) {
-            if (repo1.repo_status == repoStatus || repoStatus == 'X') {
-                getRepoPRArray.push(repo1);
-            }
-        });
-        getRepoPRArray.forEach(async function (repo, idx) {
-            let gitPRs2 = {};
-            gitPRs2[repo.repo_name] = await getGitPRs2(loginD, parms, repo);
-            gitPRs = gitPRs2;
-            //console.log("GITPRs: " + JSON.stringify(gitPRs));
-        });
-        //return gitPRs;
-
+    async function func1() {
+        if (repoGroupVal) {
+            let repoGroupData = await getRepoGrpData(repoGroupVal);
+            repoGroupData.forEach(function (repo1) {
+                if (repo1.repo_status == repoStatus || repoStatus == 'X') {
+                    getRepoPRArray.push(repo1);
+                }
+            });
+            await Promise.all(getRepoPRArray.map(async (repo) => {
+                gitPRs[repo.repo_name] = await getGitPRs2(loginD, parms, repo);
+            }));
+        }
+        else {
+            //Data for PRs. Set using getGitPRs
+            gitPRs = await getGitPRs2(loginD, parms);
+        }
     }
-    //No RepoGroup Selected
-    else {
-        //Data for PRs. Set using getGitPRs
-        gitPRs = await getGitPRs2(loginD, parms);
-        //return gitPRs;
-    }
-    //console.log("RETURN: " + JSON.stringify(gitPRs));
+
+    return func1();
 }
 
 //Github PR Integration (Get Data)
@@ -164,13 +182,13 @@ async function getGitPRs2(logins, rpogrp, rpoObj) {
             break;
     }
 
-    do {
-        fetchOptions = getOptions(startingCur, prquery, getRepo);
+    async function getPrs() {
+        fetchOptions = await getOptions(startingCur, prquery, getRepo);
         await fetch(gitServer, fetchOptions)
             .then((resp) => resp.json())
             .then(function (resp) {
                 if (resp.data.search.issueCount > 0) {
-                    gitPRs[rpoObject.RepoName + "_page" + counter] = resp;
+                    gitPRs2[rpoObject.RepoName + "_page" + counter] = resp;
                     curHasNext = resp.data.search.pageInfo.hasNextPage;
                     endCur = resp.data.search.pageInfo.endCursor;
                     console.log('Returned getGitPrs with ' + endCur + ' : ' + counter);
@@ -178,38 +196,15 @@ async function getGitPRs2(logins, rpogrp, rpoObj) {
                 }
                 if (curHasNext == true && counter >= 1) {
                     counter = counter + 1;
+                    getPrs();
                 }
             })
             .catch(function (err) {
                 console.log('Fetch Error', err);
             })
-
-
-        /* fetchOptions = getOptions(startingCur, prquery, getRepo);
-        await fetch(gitServer, fetchOptions)
-            .then((resp) => resp.json())
-            .then(function (resp) {
-                if (resp.data.search.issueCount > 0) {
-                    gitPRs[rpoObject.repo_name + "_page" + counter] = resp;
-                    curHasNext = resp.data.search.pageInfo.hasNextPage;
-                    endCur = resp.data.search.pageInfo.endCursor;
-                    console.log('Returned getGitPrs with ' + endCur + ' : ' + counter);
-                    startingCur = endCur;
-                }
-                if (curHasNext == true && counter >= 1) {
-                    counter = counter + 1;
-                }
-            })
-            .catch(function (err) {
-                console.log('Fetch Error', err);
-                alert(err);
-            }) */
     }
-    while (curHasNext == true);
-    //console.log('GITPRS: ' + JSON.stringify(gitPRs));
-    //return gitPRs;
 
-    function getOptions(stcur, qry, rpo) {
+    async function getOptions(stcur, qry, rpo) {
         var startingCur = stcur || "";
         var prquery = qry || "";
         var getRepo = rpo || "";
@@ -255,43 +250,10 @@ async function getGitPRs2(logins, rpogrp, rpoObj) {
         }
 
     }
+
+    await getPrs();
+    return gitPRs2;
 }
-
-
-///copied
-/* 
-do {
-    fetchOptions = getOptions(startingCur, prquery, getRepo);
-    axios({
-        method: fetchOptions.method,
-        url: gitServer,
-        responseType: 'json',
-        data: fetchOptions.body,
-        headers: fetchOptions.headers
-    })
-        //.then((resp) => resp.json())
-        .then(function (resp) {
-            //console.log(JSON.stringify(resp.data));
-            if (resp.data.data.search.issueCount > 0) {
-                gitPRs2[rpoObject.repo_name + "_page" + counter] = resp.data;
-                //console.log('GITPRS: ' + JSON.stringify(gitPRs));
-                curHasNext = resp.data.data.search.pageInfo.hasNextPage;
-                endCur = resp.data.data.search.pageInfo.endCursor;
-                console.log('Returned getGitPrs with ' + endCur + ' : ' + counter);
-                startingCur = endCur;
-            }
-            if (curHasNext == true && counter >= 1) {
-                counter = counter + 1;
-            }
-
-        })
-        .catch(function (err) {
-            console.log('Fetch Error', err);
-
-        })
-
-}
-while (curHasNext == true); */
 
 
 module.exports = { getRepoGrpSel, getGitPRs, getRepoGrpData };

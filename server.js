@@ -3,15 +3,11 @@ const express = require('express');
 const debug = require('debug')('app');
 const app = express();
 const cors = require('cors');
-const path = require('path');
-const session = require('express-session');
-const store = require('better-express-store');
+const session = require("express-session")
 const oneDay = 1000 * 60 * 60 * 24;
+const path = require('path');
 const dbFolder = path.resolve(__dirname, './db');
-//const axios = require('axios');
-
-//const sqlite3 = require('sqlite3').verbose();
-
+const FileStore = require('session-file-store')(session);
 
 //Other constants
 const PORT = process.env.PORT || 3000;
@@ -30,23 +26,22 @@ app.use(express.static('public'));
 app.use(express.json()); //Used to parse JSON bodies
 app.use(express.urlencoded()); //Parse URL-encoded bodies
 
-
 // *** Session State ****
+const fileStoreOptions = {
+    path: dbFolder + "/sessions",
+    ttl: oneDay,
+    secret: 'releasemanager'
+};
 app.use(session({
     secret: 'release1234managers4fun',
     resave: false,
     saveUninitialized: false,
+    store: new FileStore(fileStoreOptions),
     cookie: {
         secure: false,
         httpOnly: false,
         maxAge: oneDay
-    },
-    // change dbPath to the path to your database file
-    store: store({
-        dbPath: dbFolder + '/rmdb.db',
-        tableName: 'sessions',
-        deleteAfterInactivityMinutes: 120 // 0 = never delete
-    })
+    }
 }));
 
 
